@@ -1,0 +1,17 @@
+# Node.js
+node_modules/
+typescript/dist/
+*.tsbuildinfo
+
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+
+# Tooling and secrets
+.env
+.env.*
+!.env.example
+coverage/
+.DS_Store

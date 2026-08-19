@@ -1,0 +1,15 @@
+{
+  "name": "@bsti-2060/rev1-typescript",
+  "version": "0.1.0",
+  "private": true,
+  "description": "BSTI-2060-Rev.1 TypeScript telemetry contracts and validation reference implementation",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test --import tsx test/*.test.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

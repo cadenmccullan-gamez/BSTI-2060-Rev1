@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/cadenmccullan-gamez/BSTI-2060-Rev1/blob/main/contracts/telemetry.schema.json",
+  "title": "BSTI-2060-Rev.1 Telemetry Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "sourceNode", "sequence", "timestampMs", "stream", "quality", "payload", "integrity"],
+  "properties": {
+    "version": {"type": "string", "const": "1.0"},
+    "sourceNode": {"type": "string", "enum": ["HIN", "AIMN"]},
+    "sequence": {"type": "integer", "minimum": 0},
+    "timestampMs": {"type": "integer", "minimum": 0},
+    "stream": {"type": "string", "enum": ["thermal_hydration", "ecg", "status", "isolation"]},
+    "quality": {"type": "string", "enum": ["valid", "degraded", "unavailable", "stale", "isolated"]},
+    "payload": {"type": "object"},
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "tag", "keyId"],
+      "properties": {
+        "algorithm": {"type": "string", "enum": ["HMAC-SHA-256", "AES-256-GCM"]},
+        "tag": {"type": "string", "minLength": 16},
+        "keyId": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
