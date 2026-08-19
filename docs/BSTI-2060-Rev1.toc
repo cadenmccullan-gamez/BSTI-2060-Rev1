@@ -1,0 +1,21 @@
+\contentsline {section}{Document control}{i}{Doc-Start}%
+\contentsline {section}{Revision history}{i}{table.1}%
+\contentsline {section}{Approval record}{i}{table.2}%
+\contentsline {section}{\numberline {1}Purpose and scope}{1}{section.1}%
+\contentsline {section}{\numberline {2}Normative language and definitions}{1}{section.2}%
+\contentsline {section}{\numberline {3}System architecture}{1}{section.3}%
+\contentsline {section}{\numberline {4}Skin-contact interface layer}{2}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Composition and biological controls}{2}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Physical requirements}{2}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Microfiber suit}{3}{section.5}%
+\contentsline {section}{\numberline {6}Sensors and acquisition}{3}{section.6}%
+\contentsline {section}{\numberline {7}Power architecture}{3}{section.7}%
+\contentsline {section}{\numberline {8}Telemetry and data integrity}{4}{section.8}%
+\contentsline {section}{\numberline {9}Fail-safe and isolation behavior}{4}{section.9}%
+\contentsline {section}{\numberline {10}Cybersecurity and lifecycle controls}{4}{section.10}%
+\contentsline {section}{\numberline {11}Verification and validation}{4}{section.11}%
+\contentsline {section}{\numberline {12}Open decisions and design-freeze gates}{5}{section.12}%
+\contentsline {section}{\numberline {13}Conclusion}{5}{section.13}%
+\contentsline {section}{\numberline {A}Requirements traceability template}{5}{appendix.A}%
+\contentsline {section}{\numberline {B}Implementation repository structure}{6}{appendix.B}%
+\contentsline {section}{\numberline {C}Reference sources}{6}{appendix.C}%
