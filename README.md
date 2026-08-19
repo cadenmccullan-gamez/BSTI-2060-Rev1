@@ -50,4 +50,4 @@ pytest
 
 ## Engineering references
 
-The complete consolidated specification and reference list are in `docs/BSTI-2060-Rev1-consolidated.md`. Requirements traceability is in `docs/requirements-traceability.md`. These documents distinguish design targets from verified results.
+The complete consolidated specification and reference list are in `docs/BSTI-2060-Rev1-consolidated.md`. Requirements traceability is in `docs/requirements-traceability.md`. The logistics AI operating model, compliance controls, consumer and workforce protections, and responsible assistant behavior policy are in `docs/logistics-ai-operations-and-governance.md`. These documents distinguish design targets from verified results.
