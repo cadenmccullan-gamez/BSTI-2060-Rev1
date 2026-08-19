@@ -1,0 +1,318 @@
+\documentclass[11pt,a4paper]{article}
+
+% -----------------------------------------------------------------------------
+% BSTI-2060-Rev.1 — Official Technical Specification Paper
+% Authors: Alexis M Adams; Nicholas Michael Grossi
+% -----------------------------------------------------------------------------
+
+\usepackage[a4paper,margin=25mm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,longtable,tabularx,array}
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{float}
+
+\definecolor{specblue}{HTML}{17365D}
+\definecolor{specgray}{HTML}{5B6573}
+\definecolor{codegray}{HTML}{F3F5F7}
+\definecolor{rulegray}{HTML}{B7C0CC}
+
+\hypersetup{
+  pdftitle={BSTI-2060-Rev.1 Biometric Support and Telemetry Interface},
+  pdfauthor={Alexis M Adams; Nicholas Michael Grossi},
+  pdfsubject={Official Technical Specification},
+  pdfkeywords={BSTI-2060, telemetry, wearable system, ECG, thermal regulation}
+}
+
+\sisetup{detect-all,per-mode=symbol}
+\setlist{nosep,leftmargin=*}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\renewcommand{\arraystretch}{1.18}
+
+\titleformat{\section}{\Large\bfseries\color{specblue}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\large\bfseries\color{specblue}}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{specblue}}{\thesubsubsection}{0.7em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{BSTI-2060-Rev.1}
+\rhead{Official Technical Specification}
+\cfoot{\thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\newcommand{\req}[1]{\textbf{#1}}
+\newcommand{\engunit}[1]{\,\mathrm{#1}}
+\newcommand{\placeholder}[1]{\textit{[Complete: #1]}}
+
+\begin{document}
+
+% -----------------------------------------------------------------------------
+% Front matter
+% -----------------------------------------------------------------------------
+\begin{titlepage}
+  \centering
+  \vspace*{18mm}
+  {\Large\bfseries\color{specblue} Official Technical Specification Paper\par}
+  \vspace{12mm}
+  {\huge\bfseries Biometric Support and Telemetry Interface\par}
+  \vspace{5mm}
+  {\LARGE\bfseries BSTI-2060-Rev.1\par}
+  \vspace{18mm}
+  \rule{0.82\textwidth}{0.8pt}\par
+  \vspace{8mm}
+  {\large\textbf{Authors}\par}
+  \vspace{2mm}
+  {\large Alexis M Adams\\Nicholas Michael Grossi\par}
+  \vfill
+  \begin{tabular}{ll}
+    \toprule
+    System designation & BSTI-2060-Rev.1\\
+    Document status & Official engineering baseline; pre-certification\\
+    Revision & Rev.1\\
+    Date & \today\\
+    Classification & Technical specification\\
+    \bottomrule
+  \end{tabular}
+  \vfill
+  \begin{minipage}{0.82\textwidth}
+    \small\textbf{Use limitation.} This document defines an engineering specification and verification structure. It is not a clinical-use authorization, regulatory approval, sterilization validation, or substitute for review by qualified biomedical, materials, safety, cybersecurity, and systems engineers.
+  \end{minipage}
+\end{titlepage}
+
+\pagenumbering{roman}
+\section*{Document control}
+\addcontentsline{toc}{section}{Document control}
+\begin{longtable}{p{0.28\textwidth}p{0.62\textwidth}}
+\toprule
+\textbf{Field} & \textbf{Value}\\
+\midrule
+Document title & Biometric Support and Telemetry Interface (BSTI-2060-Rev.1)\\
+Authors & Alexis M Adams; Nicholas Michael Grossi\\
+System designation & BSTI-2060-Rev.1\\
+Current status & Official engineering baseline; implementation and validation in progress\\
+Repository & \url{https://github.com/cadenmccullan-gamez/BSTI-2060-Rev1}\\
+Change authority & \placeholder{define approving organization or authority}\\
+Applicable configuration & Dual-node Human Interface Node and Artificial Intelligence Monitoring Node\\
+\bottomrule
+\end{longtable}
+
+\section*{Revision history}
+\addcontentsline{toc}{section}{Revision history}
+\begin{longtable}{p{0.12\textwidth}p{0.18\textwidth}p{0.56\textwidth}}
+\toprule
+\textbf{Rev.} & \textbf{Date} & \textbf{Change description}\\
+\midrule
+1 & \today & Consolidated specification with materials, biomedical, telemetry, cybersecurity, safety, and verification corrections.\\
+\bottomrule
+\end{longtable}
+
+\section*{Approval record}
+\addcontentsline{toc}{section}{Approval record}
+\begin{longtable}{p{0.25\textwidth}p{0.25\textwidth}p{0.32\textwidth}}
+\toprule
+\textbf{Role} & \textbf{Name} & \textbf{Signature/date}\\
+\midrule
+Technical authority & \placeholder{name} & \placeholder{signature and date}\\
+Biomedical reviewer & \placeholder{name} & \placeholder{signature and date}\\
+Materials reviewer & \placeholder{name} & \placeholder{signature and date}\\
+Safety and security reviewer & \placeholder{name} & \placeholder{signature and date}\\
+\bottomrule
+\end{longtable}
+
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+% -----------------------------------------------------------------------------
+% Main specification
+% -----------------------------------------------------------------------------
+\section{Purpose and scope}\label{sec:purpose}
+BSTI-2060-Rev.1 is a dual-node wearable system intended to provide epidermal protection, thermal regulation, and authenticated vital-sign data exchange between a Human Interface Node (HIN) and an Artificial Intelligence Monitoring Node (AIMN). The system is specified for varied surface traversal under the stated 2060 survival constraints.
+
+This paper defines system architecture, skin-contact interface requirements, microfiber suit requirements, sensing and acquisition, power, telemetry, cybersecurity, fail-safe behavior, and verification and validation. Hardware, biological, clinical, and regulatory claims remain subject to formal evidence and approval.
+
+\section{Normative language and definitions}\label{sec:terms}
+The terms \textbf{shall}, \textbf{should}, and \textbf{may} are used in their conventional requirements meaning. “Shall” denotes a mandatory requirement; “should” denotes a recommended design practice; and “may” denotes an allowed option.
+
+\begin{longtable}{p{0.24\textwidth}p{0.68\textwidth}}
+\toprule
+\textbf{Term} & \textbf{Definition}\\
+\midrule
+Human Interface Node (HIN) & Wearable node containing the skin-contact interface, sensors, local processing, power, buffering, and communications.\\
+Artificial Intelligence Monitoring Node (AIMN) & Monitoring node that receives authenticated telemetry, records state, performs analysis, and reports information to an authorized human operator.\\
+Skin-contact interface layer & External conformal material layer coupling the suit to skin; the term does not imply fluid located within tissue.\\
+Essential-safety limit set & Measurable thresholds for human-contact, electrical, thermal, power, mechanical, sensing, and communications hazards.\\
+Safe-isolated state & A verified state in which the affected subsystem is disconnected or disabled while required local safety functions remain available.\\
+\bottomrule
+\end{longtable}
+
+\section{System architecture}\label{sec:architecture}
+The system shall comprise the HIN and AIMN as separate logical nodes. The HIN shall retain local acquisition, quality assessment, buffering, integrity protection, and isolation behavior. The AIMN shall not be the sole controller maintaining human physiological safety.
+
+\begin{table}[H]
+\centering
+\caption{System component boundaries.}
+\label{tab:architecture}
+\begin{tabularx}{\textwidth}{p{0.23\textwidth}X}
+\toprule
+\textbf{Subsystem} & \textbf{Required function and boundary}\\
+\midrule
+Skin-contact interface & Provide conformal coupling and thermal transfer without unacceptable migration, weeping, abrasion, or uncharacterized exposure.\\
+Microfiber suit & Provide mechanical protection, thermal management, and sensor distribution while retaining essential performance after environmental cycling.\\
+HIN electronics & Acquire, timestamp, filter, classify, buffer, and transmit measurements while maintaining local safety monitoring during link loss.\\
+Telemetry link & Convey authenticated measurements and state while detecting corruption, replay, loss, delay, and stale data.\\
+AIMN & Receive, validate, store, display, and analyze telemetry; declare uncertainty rather than silently extrapolating safety-relevant data.\\
+Isolation function & Place degraded subsystems into deterministic, auditable, and recoverable safe states.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Skin-contact interface layer}\label{sec:interface}
+\subsection{Composition and biological controls}
+The baseline formulation may contain an isotonic aqueous phase, a defined amino-acid or compatible osmolyte complex, lipid stabilizers, and a biocompatible gelling system. Each ingredient, impurity profile, degradation product, extractable, and leachable shall be identified before human-contact testing.
+
+The final finished article shall undergo a risk-based biological evaluation appropriate to contact duration, surface area, temperature, mechanical loading, sterilization or bioburden-control method, and degradation products. The applicable evaluation framework shall be documented before testing.
+
+\subsection{Physical requirements}
+\begin{longtable}{p{0.25\textwidth}p{0.18\textwidth}p{0.45\textwidth}}
+\caption{Skin-contact interface requirements.}\label{tab:interface-requirements}\\
+\toprule
+\textbf{Parameter} & \textbf{Baseline} & \textbf{Requirement}\\
+\midrule
+Apparent pH & 7.35--7.45 & Measure at the defined test temperature using a calibrated method, including uncertainty and stability.\\
+Viscosity & 50--100 cP & Report temperature, rheometer geometry, and shear rate; supplement with migration and weep testing.\\
+Deployment duration & Maximum 72 hours & Remove, inspect, flush or remediate, and replace before the approved limit.\\
+Sterility/bioburden & To be justified & Select and validate the claim, process, packaging, and release criteria for the actual contact category.\\
+Osmolality & Isotonic target & Define numerical acceptance ranges at release and end of life.\\
+\bottomrule
+\end{longtable}
+
+\section{Microfiber suit}\label{sec:suit}
+The suit shall use a woven synthetic-polymer microfiber composite reinforced with carbon nanotubes or an equivalent controlled reinforcement architecture. The material specification shall identify polymer chemistry, CNT type and loading, yarn construction, weave, coating, orientation, areal density, thickness, electrical behavior, and manufacturing tolerances.
+
+\begin{table}[H]
+\centering
+\caption{Microfiber suit baseline requirements.}
+\label{tab:suit}
+\begin{tabularx}{\textwidth}{p{0.25\textwidth}p{0.18\textwidth}X}
+\toprule
+\textbf{Parameter} & \textbf{Baseline} & \textbf{Requirement}\\
+\midrule
+Tensile strength & \SI{300}{\mega\pascal} & Minimum or declared directional value for finished woven composite; report warp, weft, seam, and conditioned states.\\
+Thermal conductivity & \SIrange{0.05}{0.40}{\watt\per\meter\per\kelvin} & Specify direction, temperature, moisture condition, actuator, modulation range, response time, and maximum skin-contact temperature.\\
+Sensor spacing & \SI{10}{\centi\meter} & Maintain nominal spacing with placement tolerance, anatomical coverage map, and calibration procedure.\\
+Durability & To be defined & Specify flex, stretch, seam, abrasion, compression, and environmental cycles before loss of essential performance.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Sensors and acquisition}\label{sec:sensors}
+Thermal and hydration indices shall be acquired at a continuous nominal rate of \SI{10}{\hertz}. These indices shall be labeled indirect or derived measurements unless validated against a defined reference method.
+
+Cardiac or ECG channels shall be acquired at a continuous nominal rate of \SI{250}{\hertz} as the baseline for the stated HRV use case. The final ECG requirement shall define electrode configuration, analog bandwidth, anti-alias filtering, ADC resolution, amplitude accuracy, timing accuracy, motion-artifact performance, missing-sample behavior, and intended use.
+
+Each measurement record shall include a synchronized timestamp, channel identifier, units, calibration state, sequence number, acquisition status, and source-node identifier.
+
+\section{Power architecture}\label{sec:power}
+The primary power source shall be a solid-state micro-battery array sized for continuous base load, peak acquisition and transmission load, thermal-control load, startup transients, aging, temperature derating, and reserve energy. The design shall include a no-motion operating case.
+
+Body-worn kinetic energy harvesters shall be supplemental only. The \SIrange{1}{3}{\milli\watt} target shall be verified over defined movement profiles and shall not be credited as the sole source of continuous operation.
+
+\section{Telemetry and data integrity}\label{sec:telemetry}
+The protocol shall provide authenticated integrity protection using a cryptographic message authentication code or authenticated encryption. Each message shall include protocol version, source identity, sequence number, timestamp, payload length, quality state, and anti-replay information.
+
+Invalid, duplicated, replayed, reordered, or excessively delayed data shall be rejected or marked invalid. The HIN shall retain a bounded local buffer covering the defined communications-outage interval. The AIMN shall distinguish link loss, stale data, sensor degradation, and authentication failure.
+
+\section{Fail-safe and isolation behavior}\label{sec:failsafe}
+The system shall define nominal, degraded, and safe-isolated states. Transition thresholds, hysteresis, debounce time, recovery prerequisites, and human-authorized reset behavior shall be specified for each monitored hazard.
+
+The HIN shall contain a local isolation function that can disable the affected telemetry, thermal-control, charging, or auxiliary subsystem without waiting for the AIMN. Isolation events shall be recorded in a tamper-evident local event record.
+
+\section{Cybersecurity and lifecycle controls}\label{sec:cybersecurity}
+Security requirements shall be incorporated into system risk management and the software lifecycle. The implementation shall include authenticated boot, signed firmware, protected keys, least-privilege services, secure logging, vulnerability handling, update rollback protection, and incident recovery.
+
+\section{Verification and validation}\label{sec:verification}
+Verification shall maintain bidirectional traceability from each requirement to its design implementation, test method, result, deviation record, and approval.
+
+\begin{longtable}{p{0.18\textwidth}p{0.34\textwidth}p{0.35\textwidth}}
+\caption{Verification and validation matrix.}\label{tab:verification}\\
+\toprule
+\textbf{Area} & \textbf{Test activity} & \textbf{Acceptance evidence}\\
+\midrule
+Fluid chemistry & Measure pH, osmolality, viscosity, composition, degradation, evaporation, and leachables at release, midpoint, and endpoint. & Validated method, calibrated instruments, uncertainty statement, and approved results.\\
+Biological compatibility & Risk-based final-form evaluation for irritation, sensitization, cytotoxicity, and required endpoints. & Approved plan, reports, endpoint disposition, and residual-risk acceptance.\\
+Mechanical performance & Finished-suit tensile, flex, abrasion, tear, seam, and environmental cycling tests. & Directional strength and durability requirements met.\\
+ECG acquisition & Simulator and motion-profile testing for sampling, amplitude, frequency response, timing, noise, and artifact behavior. & Validated intended-use performance at the selected rate.\\
+Power autonomy & Base-load, peak-load, no-motion, movement-harvesting, aging, and temperature tests. & Continuous operation and reserve requirements met without primary reliance on harvesting.\\
+Telemetry integrity & Corruption, truncation, duplication, replay, reordering, delay, loss, and authentication-failure injection. & Invalid data rejected or marked; valid data authenticated and ordered.\\
+Isolation function & Inject each essential-safety-limit violation and selected fault combinations. & Isolation occurs within specified response time and reaches verified safe state.\\
+\bottomrule
+\end{longtable}
+
+\section{Open decisions and design-freeze gates}\label{sec:open}
+Before design freeze, the project shall define the intended regulatory and operational classification; contact category; ECG use case; thermal-control actuator and maximum skin temperature; radio technology and outage tolerance; and the formal safety role of the AIMN.
+
+A requirement shall not be marked compliant when its measurement method, threshold, use case, or environmental condition is undefined. The terms “local precursors,” “interstitial fluid,” “non-destruction parameter,” “AI monitoring system,” and “dual-rate transmission” require formal closure in the configuration baseline.
+
+\section{Conclusion}\label{sec:conclusion}
+This paper provides the formal document structure for BSTI-2060-Rev.1 and translates the current engineering baseline into traceable requirements. The structure intentionally separates design targets from verified results and preserves explicit review gates for biological, materials, electrical, cybersecurity, and systems-engineering evidence.
+
+% -----------------------------------------------------------------------------
+% Back matter
+% -----------------------------------------------------------------------------
+\appendix
+\section{Requirements traceability template}\label{app:traceability}
+\begin{longtable}{p{0.16\textwidth}p{0.28\textwidth}p{0.23\textwidth}p{0.20\textwidth}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Implementation} & \textbf{Verification evidence}\\
+\midrule
+BSTI-INT-001 & Telemetry envelope fields and metadata & \path{contracts/telemetry.schema.json} & Schema and unit tests\\
+BSTI-INT-002 & Authenticated integrity protection & \path{typescript/src/telemetry.ts}; \path{python/bsti2060/telemetry.py} & Sign, verify, and tamper tests\\
+BSTI-SNS-001 & ECG baseline at \SI{250}{\hertz} & Rate validation functions & Polling-rate test and system validation\\
+BSTI-SNS-002 & Thermal/hydration baseline at \SI{10}{\hertz} & Rate validation functions & Polling-rate test and reference comparison\\
+BSTI-FLS-001 & Explicit quality states & Shared schema and models & Contract and state-transition tests\\
+\bottomrule
+\end{longtable}
+
+\section{Implementation repository structure}\label{app:repository}
+\begin{verbatim}
+BSTI-2060-Rev1/
+  contracts/telemetry.schema.json
+  typescript/src/telemetry.ts
+  typescript/test/telemetry.test.ts
+  python/bsti2060/telemetry.py
+  python/bsti2060/app.py
+  python/tests/test_telemetry.py
+  docs/BSTI-2060-Rev1-consolidated.md
+  docs/BSTI-2060-Rev1.tex
+\end{verbatim}
+
+\section{Reference sources}\label{app:references}
+\begin{enumerate}[label={[\arabic*]}]
+  \item U.S. Food and Drug Administration, \emph{Use of International Standard ISO 10993-1: Biological Evaluation of Medical Devices}, 2023. \url{https://www.fda.gov/media/142959/download}
+  \item Kwon et al., \emph{Electrocardiogram Sampling Frequency Range Acceptable for Heart Rate Variability Analysis}, 2018. \url{https://pubmed.ncbi.nlm.nih.gov/30109153/}
+  \item IEEE, \emph{ISO/IEEE 11073-10101 Point-of-Care Medical Device Communication—Nomenclature}. \url{https://standards.ieee.org/ieee/11073-10101/4670/}
+  \item U.S. Food and Drug Administration, \emph{Wireless Medical Telemetry Systems}. \url{https://www.fda.gov/medical-devices/wireless-medical-devices/wireless-medical-telemetry-systems}
+  \item U.S. Food and Drug Administration, \emph{Cybersecurity for Medical Devices}. \url{https://www.fda.gov/medical-devices/digital-health-center-excellence/cybersecurity}
+  \item ISO/IEC, \emph{IEC 81001-5-1: Health software and health IT systems safety, effectiveness and security}. \url{https://www.iso.org/standard/76097.html}
+  \item ISO, \emph{ISO 14971: Medical devices—Application of risk management to medical devices}. \url{https://www.iso.org/standard/72704.html}
+  \item IEC, \emph{IEC 62304: Medical device software—Software life cycle processes}. \url{https://www.iso.org/standard/38421.html}
+\end{enumerate}
+
+\end{document}
