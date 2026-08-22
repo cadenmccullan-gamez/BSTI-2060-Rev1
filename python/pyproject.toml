@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bsti-2060-rev1-python"
+version = "0.1.0"
+description = "BSTI-2060-Rev.1 Python telemetry validation reference implementation"
+readme = "PYTHON_PACKAGE.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Alexis M. Adams" },
+  { name = "Nicholas Michael Grossi" },
+]
+dependencies = [
+  "fastapi>=0.115,<1",
+  "pydantic>=2.10,<3",
+  "httpx>=0.27,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<9",
+]
+
+[tool.setuptools]
+packages = ["bsti2060"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

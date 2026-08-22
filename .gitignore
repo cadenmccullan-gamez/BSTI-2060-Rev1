@@ -8,6 +8,7 @@ typescript/dist/
 __pycache__/
 .pytest_cache/
 *.py[cod]
+*.egg-info/
 
 # Tooling and secrets
 .env
